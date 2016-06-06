@@ -4,6 +4,22 @@ author: "Guilherme Pazian 160323 Henrique Murilo Matheus Tanaka"
 date: "26 de maio de 2016"
 output: html_document
 ---
-```{r}
+```{r,cache=TRUE}
+library(RSQLite)
+library(ggplot2)
+#função pra calcular a moda
+statmod <- function(x) {
+z <- table(as.vector(x)); names(z)[z == max(z)]
+}
+
+
+setwd("c:/Users/Henrique/Desktop/Arquivos_trabalho_ME524/train.csv.gz")
+
+conn = dbConnect(SQLite(),"arch.sqlite3")
+
+database= dbGetQuery(con = conn, "SELECT * FROM arch WHERE random()%10000=0 AND site_name=2 LIMIT 10000")
+#database= dbGetQuery(con = conn, "SELECT * FROM arch WHERE random()%10000=0  LIMIT 3000000")
+#aqui vamos realizar algumas estatísticas descritivas, para os dados que obtemos.
+qplot(hotel_cluster, data = database)
 ```
 
