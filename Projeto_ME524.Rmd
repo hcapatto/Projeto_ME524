@@ -6,7 +6,7 @@ output: html_document
 ---
 ```{r,cache=TRUE}
 library(RSQLite)
-library(ggplot2)
+#library(ggplot2)
 #função pra calcular a moda
 statmod <- function(x) {
 z <- table(as.vector(x)); names(z)[z == max(z)]
@@ -20,6 +20,12 @@ conn = dbConnect(SQLite(),"arch.sqlite3")
 database= dbGetQuery(con = conn, "SELECT * FROM arch WHERE random()%10000=0 AND site_name=2 LIMIT 10000")
 #database= dbGetQuery(con = conn, "SELECT * FROM arch WHERE random()%10000=0  LIMIT 3000000")
 #aqui vamos realizar algumas estatísticas descritivas, para os dados que obtemos.
-qplot(hotel_cluster, data = database)
+
+dado_ex=as.integer(database$hotel_cluster)
+
+hist(dado_ex,breaks="Scott",main ="Frequência de hotel_clusters",xlab="Hoteis",ylab = "Frenquência",col="antiquewhite2",border = "black")
+
+#qplot(hotel_cluster, data = database)
+
 ```
 
